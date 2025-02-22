@@ -20,11 +20,11 @@ const logIn=async(req,res)=>
 
     {
         try{
-           const firstName=req.body.firstName;
-           const password=req.body.password;
-           console.log(firstName+password);
+           const email=req.body.email;
+           const password=req.body.password;    
+           console.log(email+password);
 
-          const user= await userService.loginUser(firstName,password);
+          const user= await userService.loginUser(email,password);
 
           if(user){
            res.status(200).json({message:"user loged in successfully"});
@@ -51,10 +51,10 @@ const changeUserI= async(req,res)=>
             const  lastName=req.body.lastName;
             const email=req.body.email;
 
-             await userService.changeUserInfo(firstName,lastName,email);
+             const emaile=await userService.changeUserInfo(firstName,lastName,email);
 
           
-           res.status(200).json({message:"user info changed successfully"});
+           res.status(200).json({message:"user"+emaile+" info changed successfully"});
 
 
         
@@ -73,14 +73,15 @@ const changeUserI= async(req,res)=>
 
         {
             try{
-                const firstName=req.body.firstName;
-                const password=req.body.password;
+                
+                const oldpassword=req.body.oldpassword;
+                const password=req.body.password
                 const email=req.body.email;
-    
-                 await userService.changeUserPassword(firstName,password,email);
+                
+               const emaile=  await userService.changeUserPassword(oldpassword,password,email);
     
               
-               res.status(200).json({message:"user pass has changed successfully"});
+               res.status(200).json({message:"user with email:"+emaile+" pass has changed successfully"});
     
     
             
