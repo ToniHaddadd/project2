@@ -5,6 +5,7 @@ const app = express();
 const { json, urlencoded } = bodyParser;
 app.use(urlencoded({ extended: false }));
 app.use(json());
+
 app.use("/user",userRoute);
 
 
