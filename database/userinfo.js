@@ -1,2 +1,1 @@
-export const tableuser=[[]];
-
+export const tableuser = [[]];
