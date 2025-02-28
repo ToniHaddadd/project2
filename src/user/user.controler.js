@@ -14,7 +14,6 @@ const logIn = async (req, res) => {
   try {
     const email = req.body.email;
     const password = req.body.password;
-    console.log(email + password);
 
     const result = await userService.loginUser(email, password);
 

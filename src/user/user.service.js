@@ -4,7 +4,6 @@ const createUser = async (firstName, lastName, password, email) => {
   const id = tableuser.length;
 
   await tableuser.push([id, firstName, lastName, password, email]);
-  //   console.log(tableuser);
 };
 
 const loginUser = (email, password) => {
@@ -24,8 +23,6 @@ const changeUserInfo = (firstName, lastName, email) => {
     tableuser[id][4] = email;
     return email;
   }
-  //   return "error : user not found ";
-  console.log(tableuser);
 };
 
 const changeUserPassword = (oldpassword, password, email) => {
@@ -35,8 +32,6 @@ const changeUserPassword = (oldpassword, password, email) => {
     tableuser[id][3] = password;
     return email;
   }
-
-  console.log(tableuser);
 };
 
 const getuserid = (email) => {
