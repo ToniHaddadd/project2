@@ -6,7 +6,7 @@ const createUser = async (firstName, lastName, password, email) => {
   await tableuser.push([id, firstName, lastName, password, email]);
 };
 
-const loginUser = (email, password) => {
+const loginUser = async (email, password) => {
   for (let i = 1; i < tableuser.length; i++) {
     if (tableuser[i][4] == email && tableuser[i][3] == password) {
       return true;
