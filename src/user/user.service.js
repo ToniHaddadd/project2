@@ -1,47 +1,64 @@
 import { tableuser } from "../../database/userinfo.js";
 
 const createUser = async (firstName, lastName, password, email) => {
-  const id = tableuser.length;
+  const user = await checkUser(email, password);
 
-  await tableuser.push([id, firstName, lastName, password, email]);
+  if (user) {
+    throw new Error("user" + firstName + "with this email already exists");
+  }
+
+  const id = getLastId() + 1;
+
+  await tableuser.push({ id, firstName, lastName, password, email });
 };
 
 const loginUser = async (email, password) => {
-  for (let i = 1; i < tableuser.length; i++) {
-    if (tableuser[i][4] == email && tableuser[i][3] == password) {
+  if (await checkUser(email, password)) {
+    return true;
+  }
+  return false;
+};
+
+const changeUserInfo = (firstName, lastName, email, password) => {
+  for (const user of tableuser) {
+    if (user.email === email && user.password === password) {
+      user.email = email;
+      user.firstName = firstName;
+      user.lastName = lastName;
+      return email;
+    }
+  }
+};
+
+const changeUserPassword = (oldpassword, password, email) => {
+  console.log(tableuser);
+  for (const user of tableuser) {
+    if (user.email === email && user.password === oldpassword) {
+      user.password = password;
+      return email;
+    }
+  }
+  console.log(tableuser);
+};
+
+const checkUser = async (email, password) => {
+  for (const user of tableuser) {
+    if (user.email === email && user.password === password) {
       return true;
     }
   }
   return false;
 };
 
-const changeUserInfo = (firstName, lastName, email) => {
-  const id = getuserid(email);
-  if (id > 0) {
-    tableuser[id][1] = firstName;
-    tableuser[id][2] = lastName;
-    tableuser[id][4] = email;
-    return email;
-  }
+const getLastId = () => {
+  let id = 0;
+
+  tableuser.forEach((user) => {
+    id = id + user.id;
+  });
+
+  return id;
 };
-
-const changeUserPassword = (oldpassword, password, email) => {
-  const id = getuserid(email);
-
-  if (tableuser[id][3] == oldpassword) {
-    tableuser[id][3] = password;
-    return email;
-  }
-};
-
-const getuserid = (email) => {
-  for (let i = 1; i < tableuser.length; i++) {
-    if (tableuser[i][4] == email) {
-      return i;
-    }
-  }
-};
-
 export default {
   createUser,
   loginUser,

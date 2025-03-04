@@ -32,8 +32,14 @@ const changeUserI = async (req, res) => {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const email = req.body.email;
+    const password = req.body.password;
 
-    const emaile = await userService.changeUserInfo(firstName, lastName, email);
+    const emaile = await userService.changeUserInfo(
+      firstName,
+      lastName,
+      email,
+      password
+    );
 
     res
       .status(200)
