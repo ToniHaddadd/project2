@@ -1,10 +1,14 @@
 import express from "express";
 import bodyParser from "body-parser";
 import userRoute from "./src/user/user.route.js";
-import database from "./src/config/database.js";
+
+import connect from "./src/config/database.js";
+connect();
 const app = express();
+
 const { json, urlencoded } = bodyParser;
 app.use(urlencoded({ extended: false }));
+
 app.use(json());
 
 app.use("/user", userRoute);

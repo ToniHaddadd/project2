@@ -3,9 +3,9 @@ import userService from "./user.service.js";
 class userController {
   static async signUp(req, res) {
     try {
-      const { email, firstName, lastName, password } = req.body;
+      const { email, password, firstName, lastName } = req.body;
 
-      await userService.createUser(firstName, lastName, password, email);
+      await userService.createUser(email, password, firstName, lastName);
       res.status(200).json({ message: "user sign up and added successfully" });
     } catch (error) {
       res.status(400).json({ message: error.message });
